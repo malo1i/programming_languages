@@ -1,0 +1,9 @@
+c = int(input("Цена: "))
+n = int(input("Количество: "))
+
+s = c * n
+nds = s * 12 / 100
+
+print(s)
+print(nds)
+print(s + nds)

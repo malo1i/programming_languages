@@ -1,0 +1,11 @@
+n = int(input("Введите четырехзначное число: "))
+
+thousands = n // 1000
+hundreds = (n // 100) % 10
+tens = (n // 10) % 10
+units = n % 10
+
+print("Тысячи:", thousands)
+print("Сотни:", hundreds)
+print("Десятки:", tens)
+print("Единицы:", units)

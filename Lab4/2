@@ -1,0 +1,31 @@
+<form onsubmit="return checkPassword()">
+
+    <input type="text" placeholder="Логин" required>
+    <br><br>
+
+    <input type="email" placeholder="E-mail" required>
+    <br><br>
+
+    <input type="password" id="password" placeholder="Пароль" minlength="8" required>
+    <br><br>
+
+    <input type="password" id="repeat" placeholder="Повтор пароля" required>
+    <br><br>
+
+    <button type="submit">Зарегистрироваться</button>
+
+</form>
+
+<script>
+function checkPassword() {
+    let password = document.getElementById("password").value;
+    let repeat = document.getElementById("repeat").value;
+
+    if (password != repeat) {
+        alert("Пароли не совпадают!");
+        return false;
+    }
+
+    return true;
+}
+</script>

@@ -1,0 +1,13 @@
+<form>
+<input placeholder="Имя" required>
+
+<select>
+  <option>Вопрос</option>
+  <option>Предложение</option>
+  <option>Жалоба</option>
+</select>
+
+<textarea placeholder="Сообщение" required></textarea>
+
+<button>Отправить</button>
+</form>

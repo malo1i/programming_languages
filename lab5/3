@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог</title>
+</head>
+
+<body>
+
+<h2>Каталог товаров</h2>
+
+<input type="number" id="maxPrice" placeholder="Максимальная цена">
+
+<button onclick="filter()">Показать</button>
+<button onclick="show()">Все товары</button>
+
+<div id="catalog"></div>
+
+<script>
+let products = [
+    ["Ноутбук", 250000, "Мощный ноутбук"],
+    ["Смартфон", 150000, "Современный смартфон"],
+    ["Наушники", 30000, "Беспроводные наушники"],
+    ["Мышь", 10000, "Компьютерная мышь"]
+];
+
+function show(list = products) {
+    let catalog = document.getElementById("catalog");
+    catalog.innerHTML = "";
+
+    list.forEach(p => {
+        catalog.innerHTML += `
+            <div>
+                <h3>${p[0]}</h3>
+                <p>${p[2]}</p>
+                <b>${p[1]} ₸</b>
+            </div>
+            <hr>
+        `;
+    });
+}
+
+function filter() {
+    let price = Number(document.getElementById("maxPrice").value);
+
+    let result = products.filter(p => p[1] <= price);
+
+    show(result);
+}
+
+show();
+</script>
+
+</body>
+</html>

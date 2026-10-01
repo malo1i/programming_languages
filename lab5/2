@@ -1,0 +1,20 @@
+<h2>Калькулятор среднего балла</h2>
+
+<input type="text" id="grades" placeholder="Например: 5, 4, 3, 5">
+<button onclick="calculate()">Посчитать</button>
+
+<p id="result"></p>
+
+<script>
+function calculate() {
+    let grades = document.getElementById("grades").value.split(",");
+    let sum = 0;
+
+    for (let grade of grades) {
+        sum += Number(grade);
+    }
+
+    let average = sum / grades.length;
+
+    document.getElementById("result").innerHTML =
+        "Средний балл: " + average;

@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Киноафиша</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            margin: 0;
+        }
+
+        header {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            background: #ff5555;
+            color: white;
+        }
+
+        nav button:hover {
+            background: #cc3333;
+        }
+
+        #content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .movie {
+            background: white;
+            margin: 15px auto;
+            padding: 15px;
+            max-width: 400px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🎬 Киноафиша</h1>
+
+        <nav>
+            <button onclick="showMovies('now')">Сейчас</button>
+            <button onclick="showMovies('soon')">Скоро</button>
+            <button onclick="showContacts()">Контакты</button>
+        </nav>
+    </header>
+
+    <div id="content"></div>
+
+    <script>
+        // Список фильмов
+        let movies = [
+            {
+                name: "Дюна",
+                genre: "Фантастика",
+                status: "now"
+            },
+            {
+                name: "Головоломка 2",
+                genre: "Мультфильм",
+                status: "now"
+            },
+            {
+                name: "Гладиатор 2",
+                genre: "Боевик",
+                status: "soon"
+            },
+            {
+                name: "Аватар 3",
+                genre: "Фантастика",
+                status: "soon"
+            }
+        ];
+
+        let content = document.getElementById("content");
+
+        // Показ фильмов
+        function showMovies(status) {
+            let html = status === "now"
+                ? "<h2>Сейчас в кино</h2>"
+                : "<h2>Скоро в кино</h2>";
+
+            for (let movie of movies) {
+                if (movie.status === status) {
+                    html += `
+                        <div class="movie">
+                            <h3>${movie.name}</h3>
+                            <p>Жанр: ${movie.genre}</p>
+                        </div>
+                    `;
+                }
+            }
+
+            content.innerHTML = html;
+        }
+
+        // Вкладка контактов
+        function showContacts() {
+            content.innerHTML = `
+                <h2>Контакты</h2>
+                <p>Email: cinema@mail.ru</p>
+                <p>Телефон: +7 700 123 45 67</p>
+            `;
+        }
+
+        // Начальная страница
+        showMovies("now");
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Электронный журнал</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: #eee;
+        }
+
+        button, input, select {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        .card {
+            background: white;
+            margin: 10px auto;
+            padding: 10px;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Электронный журнал</h1>
+
+    <button onclick="studentsPage()">Студенты</button>
+    <button onclick="gradesPage()">Оценки</button>
+    <button onclick="statsPage()">Статистика</button>
+
+    <div id="content"></div>
+
+    <script>
+        let students = ["Али", "Мария"];
+        let grades = [5, 4, 3];
+
+        let content = document.getElementById("content");
+
+        // Студенты
+        function studentsPage() {
+            content.innerHTML = "<h2>Студенты</h2>";
+
+            content.innerHTML += `
+                <input id="name" placeholder="Имя студента">
+                <button onclick="addStudent()">Добавить</button>
+            `;
+
+            for (let name of students) {
+                content.innerHTML += `<p>${name}</p>`;
+            }
+        }
+
+        function addStudent() {
+            let name = document.getElementById("name").value;
+
+            if (name.trim() !== "") {
+                students.push(name);
+                studentsPage();
+            }
+        }
+
+        // Оценки
+        function gradesPage() {
+            content.innerHTML = `
+                <h2>Оценки</h2>
+                <input id="grade" type="number"
+                    min="2" max="5" placeholder="Оценка (2–5)">
+                <button onclick="addGrade()">Добавить</button>
+                <div id="gradeList"></div>
+            `;
+
+            showGradeList();
+        }
+
+        function addGrade() {
+            let grade = Number(document.getElementById("grade").value);
+
+            if (grade >= 2 && grade <= 5) {
+                grades.push(grade);
+                gradesPage();
+            } else {
+                alert("Введите оценку от 2 до 5");
+            }
+        }
+
+        function showGradeList() {
+            let list = document.getElementById("gradeList");
+
+            for (let grade of grades) {
+                list.innerHTML += `<p>Оценка: ${grade}</p>`;
+            }
+        }
+
+        // Статистика
+        function statsPage() {
+            let sum = 0;
+
+            for (let grade of grades) {
+                sum += grade;
+            }
+
+            let average = grades.length
+                ? (sum / grades.length).toFixed(2)
+                : 0;
+
+            content.innerHTML = `
+                <h2>Статистика</h2>
+                <p>Количество студентов: ${students.length}</p>
+                <p>Количество оценок: ${grades.length}</p>
+                <p>Средний балл: ${average}</p>
+            `;
+        }
+
+        studentsPage();
+    </script>
+
+</body>
+</html>

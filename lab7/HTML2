@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Магазин</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            margin: 0;
+        }
+
+        header {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #388e3c;
+        }
+
+        #content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product {
+            background: white;
+            padding: 15px;
+            margin: 15px auto;
+            max-width: 350px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🛒 Мой магазин</h1>
+
+        <button onclick="showProducts()">Товары</button>
+        <button onclick="showCart()">
+            Корзина (<span id="count">0</span>)
+        </button>
+        <button onclick="showAbout()">О магазине</button>
+    </header>
+
+    <div id="content"></div>
+
+    <script>
+        // Список товаров
+        let products = [
+            { id: 1, name: "Ноутбук", price: 250000 },
+            { id: 2, name: "Телефон", price: 150000 },
+            { id: 3, name: "Наушники", price: 10000 },
+            { id: 4, name: "Мышка", price: 5000 }
+        ];
+
+        // Корзина
+        let cart = [];
+
+        let content = document.getElementById("content");
+
+        // Показ товаров
+        function showProducts() {
+            let html = "<h2>Наши товары</h2>";
+
+            for (let product of products) {
+                html += `
+                    <div class="product">
+                        <h3>${product.name}</h3>
+                        <p>Цена: ${product.price} ₸</p>
+                        <button onclick="addToCart(${product.id})">
+                            Добавить в корзину
+                        </button>
+                    </div>
+                `;
+            }
+
+            content.innerHTML = html;
+        }
+
+        // Добавление товара в корзину
+        function addToCart(id) {
+            let product = products.find(p => p.id === id);
+            cart.push(product);
+
+            updateCount();
+            alert("Товар добавлен в корзину!");
+        }
+
+        // Пересчёт количества товаров
+        function updateCount() {
+            document.getElementById("count").textContent = cart.length;
+        }
+
+        // Показ корзины
+        function showCart() {
+            let html = "<h2>Корзина</h2>";
+
+            if (cart.length === 0) {
+                html += "<p>Корзина пуста</p>";
+            }
+
+            let total = 0;
+
+            for (let product of cart) {
+                html += `
+                    <div class="product">
+                        <h3>${product.name}</h3>
+                        <p>Цена: ${product.price} ₸</p>
+                    </div>
+                `;
+
+                total += product.price;
+            }
+
+            html += `<h3>Количество товаров: ${cart.length}</h3>`;
+            html += `<h3>Итого: ${total} ₸</h3>`;
+
+            content.innerHTML = html;
+        }
+
+        // Информация о магазине
+        function showAbout() {
+            content.innerHTML = `
+                <h2>О магазине</h2>
+                <p>Добро пожаловать в наш интернет-магазин!</p>
+                <p>У нас вы найдёте технику и аксессуары.</p>
+            `;
+        }
+
+        // Начальная страница
+        showProducts();
+    </script>
+
+</body>
+</html>

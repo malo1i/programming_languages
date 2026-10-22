@@ -1,0 +1,77 @@
+<html>
+<head>
+    <title>Контакты</title>
+</head>
+<body>
+
+<h1>Мои контакты</h1>
+
+<input id="name" placeholder="Имя">
+<input id="phone" placeholder="Телефон">
+
+<select id="group">
+    <option>Семья</option>
+    <option>Друзья</option>
+    <option>Учёба</option>
+    <option>Работа</option>
+</select>
+
+<button onclick="add()">Добавить</button>
+
+<h3>Поиск</h3>
+<input id="search" placeholder="Имя" oninput="show()">
+
+<h3>Список контактов</h3>
+<div id="list"></div>
+
+<script>
+let contacts = [];
+
+function add() {
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let group = document.getElementById("group").value;
+
+    if (name == "" || phone == "") {
+        alert("Заполните поля");
+        return;
+    }
+
+    contacts.push({
+        name: name,
+        phone: phone,
+        group: group
+    });
+
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+
+    show();
+}
+
+function show() {
+    let list = document.getElementById("list");
+    let search = document.getElementById("search").value.toLowerCase();
+
+    list.innerHTML = "";
+
+    for (let i = 0; i < contacts.length; i++) {
+        let c = contacts[i];
+
+        if (c.name.toLowerCase().includes(search)) {
+            list.innerHTML +=
+                "<p>" + c.name + " | " +
+                c.phone + " | " + c.group +
+                " <button onclick='del(" + i + ")'>Удалить</button></p>";
+        }
+    }
+}
+
+function del(i) {
+    contacts.splice(i, 1);
+    show();
+}
+</script>
+
+</body>
+</html>

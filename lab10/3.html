@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Бронирование помещений</title>
+</head>
+<body>
+
+    <h2>Бронирование помещений</h2>
+
+    <label>Помещение:</label>
+    <select id="room">
+        <option value="101">Комната 101</option>
+        <option value="102">Комната 102</option>
+        <option value="103">Комната 103</option>
+    </select>
+
+    <label>Дата:</label>
+    <input type="date" id="date">
+
+    <label>Начало:</label>
+    <input type="time" id="start">
+
+    <label>Окончание:</label>
+    <input type="time" id="end">
+
+    <button onclick="bookRoom()">Забронировать</button>
+
+    <p id="result"></p>
+
+    <h3>Список бронирований</h3>
+    <ul id="bookingList"></ul>
+
+    <script>
+        // Список бронирований
+        let bookings = [];
+
+        // Добавление бронирования
+        function bookRoom() {
+            let room = document.getElementById("room").value;
+            let date = document.getElementById("date").value;
+            let start = document.getElementById("start").value;
+            let end = document.getElementById("end").value;
+            let result = document.getElementById("result");
+
+            if (!date || !start || !end) {
+                result.innerText = "Заполните все поля!";
+                return;
+            }
+
+            if (start >= end) {
+                result.innerText = "Неправильное время!";
+                return;
+            }
+
+            // Проверка свободного времени
+            let busy = bookings.some(b =>
+                b.room === room &&
+                b.date === date &&
+                start < b.end &&
+                end > b.start
+            );
+
+            if (busy) {
+                result.innerText = "Время уже занято!";
+                return;
+            }
+
+            bookings.push({ room, date, start, end });
+
+            result.innerText = "Бронирование успешно!";
+
+            showBookings();
+        }
+
+        // Показ бронирований
+        function showBookings() {
+            let list = document.getElementById("bookingList");
+            list.innerHTML = "";
+
+            bookings.forEach(b => {
+                let item = document.createElement("li");
+
+                item.innerText =
+                    "Комната " + b.room + " | " +
+                    b.date + " | " +
+                    b.start + " - " + b.end;
+
+                list.appendChild(item);
+            });
+        }
+    </script>
+
+</body>
+</html>

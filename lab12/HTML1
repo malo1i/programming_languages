@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Магазин</title>
+</head>
+<body>
+
+<h1>Мой интернет-магазин</h1>
+
+<h2>Вход</h2>
+<input type="text" id="name" placeholder="Введите имя">
+<button onclick="login()">Войти</button>
+
+<h2 id="welcome">Вы вошли как гость</h2>
+
+<h2>Товары</h2>
+
+<p>Телефон - 50000 тг
+<button onclick="buy()">Купить</button></p>
+
+<p>Наушники - 5000 тг
+<button onclick="buy()">Купить</button></p>
+
+<p>Часы - 10000 тг
+<button onclick="buy()">Купить</button></p>
+
+<p>Корзина: <span id="cart">0</span></p>
+
+<script>
+function login() {
+    let name = document.getElementById("name").value;
+
+    if (name != "") {
+        document.getElementById("welcome").innerHTML =
+        "Добро пожаловать, " + name;
+    }
+}
+
+function buy() {
+    let cart = document.getElementById("cart");
+    cart.innerHTML = Number(cart.innerHTML) + 1;
+}
+</script>
+
+</body>
+</html>

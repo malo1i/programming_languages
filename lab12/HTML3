@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Управление пользователями</title>
+<style>
+body {
+    font-family: Arial;
+    background: #eee;
+    padding: 20px;
+}
+.container {
+    background: white;
+    padding: 20px;
+    width: 70%;
+    margin: auto;
+    border-radius: 8px;
+}
+input, select {
+    padding: 8px;
+    margin: 5px;
+}
+button {
+    padding: 8px 15px;
+    background: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+}
+td, th {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Система управления пользователями</h1>
+
+<h2>Вход в систему</h2>
+<input type="text" id="login" placeholder="Логин">
+<input type="password" id="password" placeholder="Пароль">
+<button onclick="loginUser()">Войти</button>
+
+<p id="status">Вы не авторизованы</p>
+
+<h2>Пользователи</h2>
+<table>
+<tr>
+<th>Имя</th>
+<th>Роль</th>
+</tr>
+<tr>
+<td>Admin</td>
+<td>Администратор</td>
+</tr>
+<tr>
+<td>Student</td>
+<td>Пользователь</td>
+</tr>
+</table>
+
+<h2>Журнал событий</h2>
+<ul id="logs"></ul>
+
+<button onclick="logout()">Выйти</button>
+
+</div>
+
+<script>
+let currentUser = "";
+
+function addLog(message) {
+    let log = document.createElement("li");
+    log.innerText = new Date().toLocaleString() + " - " + message;
+    document.getElementById("logs").appendChild(log);
+}
+
+function loginUser() {
+    let login = document.getElementById("login").value;
+    let password = document.getElementById("password").value;
+
+    if (login == "admin" && password == "1234") {
+        currentUser = "Администратор";
+    }
+    else if (login == "student" && password == "1111") {
+        currentUser = "Пользователь";
+    }
+    else {
+        alert("Неверный логин или пароль");
+        addLog("Неудачная попытка входа");
+        return;
+    }
+
+    document.getElementById("status").innerText =
+        "Вы вошли как: " + currentUser;
+
+    addLog(currentUser + " вошёл в систему");
+}
+
+function logout() {
+    if (currentUser != "") {
+        addLog(currentUser + " вышел из системы");
+        currentUser = "";
+        document.getElementById("status").innerText =
+            "Вы не авторизованы";
+    }
+}
+</script>
+
+</body>
+</html>
